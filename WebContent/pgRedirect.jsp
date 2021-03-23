@@ -20,8 +20,8 @@ parameters.put("MID",PaytmConstants.MID);
 parameters.put("CHANNEL_ID",PaytmConstants.CHANNEL_ID);
 parameters.put("INDUSTRY_TYPE_ID",PaytmConstants.INDUSTRY_TYPE_ID);
 parameters.put("WEBSITE",PaytmConstants.WEBSITE);
-parameters.put("MOBILE_NO","9876543210");
-parameters.put("EMAIL","ehackers04@gmail.com");
+parameters.put("MOBILE_NO",request.getParameter("MOBILE_NO"));
+parameters.put("EMAIL",request.getParameter("EMAIL"));
 parameters.put("CALLBACK_URL", "http://localhost:1010/Gym-Management-System/pgResponse.jsp");
 //parameters.put("CALLBACK_URL","http://localhost:8080/paytm_java/paid.jsp");
 

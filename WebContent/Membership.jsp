@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@page import="java.sql.*"%>
+<%@page import="com.helpers.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,70 +12,89 @@
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
  integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+   <link rel="stylesheet" href="CSS/owl.carousel.css">
+    <link rel="stylesheet" href="CSS/owl.theme.green.css">
+    <link rel="Stylesheet" href="CSS/Style.css">
+    <script src="JS/jquery.min.js"></script>
+      <script src="JS/owl.carousel.min.js"></script>
 <title> MemberShip </title>
 </head>
 <body>
 
+<div class="main">
+  <div class="container-fluid p-5">
+          <div class="row">
+          <div class="owl-carousel owl-theme">
+<%
+Connection con= ConnectionProvider.getConnection();
 
+//out.println(con);
 
-<div class="card-deck mb-3 text-center">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">3 Months</h4>
+Statement stmt=con.createStatement();  
+ResultSet rs=stmt.executeQuery("select * from membership");  
+while(rs.next()) 
+{
+%>
+<div class="item" id="items">
+       <div class="col-lg-3 col-md-3 col-sm-12">
+        <div class="card mt-2" style="width: 18rem; height:22rem">
+        <div class="card-header">
+        <h4 class="my-2 font-weight-normal text-center "><%=rs.getString("Plan_Month") %> Months</h4>
       </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">&#8377 1299 <small class="text-muted"></small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li></li>
-          <li>24/7 GYM Access</li>
-          <li>Locker Access</li>
-          <li>Help center access</li>
-        </ul>
-       <a href="checkouts.jsp?v=1299&m=3" class="btn btn-lg btn-block btn-primary"><i class="fa fa-download"></i>Get Started</a>
-      </div>
-    </div>
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">6 Months</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">&#8377 2299 <small class="text-muted"></small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li></li>
-          <li>yoga classes</li>
-          <li>Priority email support</li>
-          <li>Help center access</li>
-        </ul>
-       <a href="checkouts.jsp?v=2299&m=6" class="btn btn-lg btn-block btn-primary"><i class="fa fa-download"></i>Get Started</a>
-      </div>
-    </div>
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">12 Months</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">&#8377 3299 <small class="text-muted"></small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li></li>
-          <li>Yoga Classes</li>
-          <li>Phone and email support</li>
-          <li>Help center access</li>
-        </ul>
-        <a href="checkouts.jsp?v=3299&m=12" class="btn btn-lg btn-block btn-primary"><i class="fa fa-download"></i>Get Started</a>
-      </div>
-    </div>
+      
+          <!-- <img src="Posters/<?php echo$row['Sub_Poster']?>"width="12rem" height="25rem"class="card-img-top" alt="<?php echo$row['Sub_Poster']?>"> -->
+             <div class="card-body">
+                 <p class="card-text"><Strong>Type : </strong><%=rs.getString("Plan_Title") %></p>
+                <p class="card-text"><Strong> Description : </strong><br><%=rs.getString("Plan_Desc") %></p>
+                <h4 class="card-text text-center mt-6"><span id=spanrupee> &#8377 </span><Strong><%=rs.getInt("Plan_Amount") %>/-</strong></h4>
+                 <a href="checkouts.jsp?v=<%=rs.getString("Plans_Id") %>" class="btn btn-lg btn-block btn-primary"><i class="fa fa-download"></i>Get Started</a>
+              
+              </div>
+              </div> <!--card div -->
+         </div>
   </div>
+<%
+}
+%>
+</div>
+</div>
+</div>
+</div>
 
- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-  crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-     integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+            $('.owl-carousel').owlCarousel({
+    loop:false,
+    margin:50,
+    dots:false,
+    nav:false,
+    stagePadding:10,
+    autoplay:false,
+     autoplayTimeout :1000,
+    responsive:{
+        0:{
+            margin:-200,
+            items:1
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    -->
-</body> 
+            
+        },
+        600:{
+          margin:-25,
+            items:3
+           
+        },
+        1000:{
+          margin:250,
+            items:4
+        }
+    }
+})
+
+  });
+
+</script>
+ 
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+  </body>
 </html>

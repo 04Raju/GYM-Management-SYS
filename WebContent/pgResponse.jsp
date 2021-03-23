@@ -2,6 +2,7 @@
 <%@page import="paytm_java.PaytmConstants"%>
 <%@page import="com.itextpdf.kernel.pdf.PdfDocument"%>
 <%@page import="com.itextpdf.kernel.pdf.PdfWriter"%>
+<%@page import="java.io.*"%>
 <%@page import="com.itextpdf.layout.Document,com.itextpdf.layout.element.Paragraph"%>
 
 
@@ -72,15 +73,17 @@ try{
 -->
 <%=outputHTML %>
 <br>
-<% 
+<%! String path;%>  
 
-String path="C://Users//akash//Desktop//JAVA -GYM//Gym-Management-System//WebContent//Data//Invoice.pdf";
+<%
+
+try{
+	path="../Invoices.pdf";
+System.out.println(path);
 
 PdfWriter writer = new PdfWriter(path);
 PdfDocument pdfDoc = new PdfDocument(writer);
  pdfDoc.addNewPage();  
-
- String message = "Thanks For Using... ";
  
  String data=outputHTML;
  String strMain =data; 
@@ -100,11 +103,18 @@ PdfDocument pdfDoc = new PdfDocument(writer);
     // Paragraph paragraph2 = new Paragraph(message); 
      //document.add(paragraph2);
 	  document.close(); 
+	  System.out.println("PDF Created");
+	  
+}catch(Exception e){
+	System.out.print(e);
+}
+
+
            
- System.out.println("PDF Created");  
+  
 
  %>	<br><br><br>
-	<a href="Data/Invoice.pdf" download style="padding:20px; color:white; Background-color:Green;">Downlaod Invoice</a>
+	<a href="../Invoices.pdf"style="padding:20px; color:white; Background-color:Green;">Downlaod Invoice</a>
 	<a href="Membership.jsp"style="padding:20px; color:white; Background-color:Blue;">Return Back</a>
 </body>
 </html>
